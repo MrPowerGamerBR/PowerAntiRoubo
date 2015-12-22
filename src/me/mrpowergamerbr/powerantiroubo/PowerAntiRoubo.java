@@ -43,7 +43,7 @@ public class PowerAntiRoubo extends JavaPlugin implements Listener {
 						WrapperPlayClientTabComplete wpctc = new WrapperPlayClientTabComplete(e.getPacket());
 
 						for (String cmd : blockedCommands) {
-							if (wpctc.getText().toLowerCase().equalsIgnoreCase(cmd.toLowerCase() + " ")) {
+							if (wpctc.getText().equalsIgnoreCase(cmd + " ")) {
 								e.setCancelled(true);
 								break;
 							}
@@ -70,7 +70,7 @@ public class PowerAntiRoubo extends JavaPlugin implements Listener {
 		}
 		for (String cmd : blockedCommands) {
 			if (!e.getPlayer().hasPermission("PowerAntiRoubo.Bypass")) {
-				if (e.getMessage().equalsIgnoreCase(cmd.toLowerCase())) {
+				if (e.getMessage().equalsIgnoreCase(cmd)) {
 					e.setCancelled(true);
 					e.getPlayer().sendMessage(blockedMessage);
 					break;
