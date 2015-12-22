@@ -1,0 +1,21 @@
+# PowerAntiRoubo - Bloqueie players tentando roubar os seus plugins!
+#
+# Criado por MrPowerGamerBR - Website: http://mrpowergamerbr.blogspot.com.br/
+# SparklyPower: http://sparklypower.net
+
+# Mensagem ao tentar usar o comando
+MensagemFilosofica: "&cVocê não vai roubar meus plugins, meu caro amigo."
+# Comandos que não será possível utilizar no Servidor ou usar /comando *TAB*
+ComandosBloqueados:
+    - /?
+    - /ver
+    - /version
+    - /about
+    - /pl
+    - /plugins
+    - /bukkit:?
+    - /bukkit:ver
+    - /bukkit:version
+    - /bukkit:about
+    - /bukkit:pl
+    - /bukkit:plugins

@@ -1,0 +1,4 @@
+name: PowerAntiRoubo
+main: me.mrpowergamerbr.powerantiroubo.PowerAntiRoubo
+version: 1.0
+softdepend: [ProtocolLib]
