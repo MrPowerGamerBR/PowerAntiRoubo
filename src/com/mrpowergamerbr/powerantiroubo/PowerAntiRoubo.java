@@ -3,7 +3,6 @@ package com.mrpowergamerbr.powerantiroubo;
 import java.util.ArrayList;
 
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -19,11 +18,9 @@ import com.mrpowergamerbr.powerantiroubo.utils.AsrielConfig;
 import com.mrpowergamerbr.powerantiroubo.utils.TemmieUpdater;
 
 public class PowerAntiRoubo extends JavaPlugin implements Listener {
-	ArrayList<String> blockedCommands = new ArrayList<String>();
-	String blockedMessage = "";
 	public AsrielConfig asriel;
 	
-	public static final String version = "v1.1.0";
+	public static final String version = "v1.2.0";
 	public static final String pluginName = "PowerAntiRoubo";
 	
 	@Override
@@ -34,14 +31,6 @@ public class PowerAntiRoubo extends JavaPlugin implements Listener {
 		/*
 		 * Carregar as configurações
 		 */
-		blockedCommands = (ArrayList<String>) getConfig().getStringList("ComandosBloqueados");
-		String message = getConfig().getString("MensagemFilosofica");
-		/*
-		 * Sim, eu poderia usar .replace, mas usar translateAlternateColorCodes é bem melhor
-		 */
-		message = ChatColor.translateAlternateColorCodes('&', message);
-		blockedMessage = message;
-
 		Bukkit.getPluginManager().registerEvents(this, this);
 
 		ProtocolLibrary.getProtocolManager().addPacketListener(new PacketAdapter(this, ListenerPriority.NORMAL, PacketType.Login.Client.START) {
@@ -50,7 +39,7 @@ public class PowerAntiRoubo extends JavaPlugin implements Listener {
 					if (!e.getPlayer().hasPermission("PowerAntiRoubo.Bypass")) {
 						WrapperPlayClientTabComplete wpctc = new WrapperPlayClientTabComplete(e.getPacket());
 
-						for (String cmd : blockedCommands) {
+						for (String cmd : (ArrayList<String>) asriel.get("ComandosBloqueados")) {
 							if (wpctc.getText().toLowerCase().startsWith(cmd + " ") || wpctc.getText().toLowerCase().equals(cmd)) {
 								e.setCancelled(true);
 								break;
@@ -75,16 +64,16 @@ public class PowerAntiRoubo extends JavaPlugin implements Listener {
 	public void onPreprocess(PlayerCommandPreprocessEvent e) {
 		if (e.getMessage().equalsIgnoreCase("/par")) {
 			e.setCancelled(true);
-			e.getPlayer().sendMessage("§6§lPowerAntiRoubo §6v1.1.0 §8- §3Criado por §bMrPowerGamerBR");
+			e.getPlayer().sendMessage("§6§lPowerAntiRoubo §6v1.2.0 §8- §3Criado por §bMrPowerGamerBR");
 			e.getPlayer().sendMessage("§eWebsite:§6 http://mrpowergamerbr.blogspot.com.br/");
 			e.getPlayer().sendMessage("§eSparklyPower:§6 http://sparklypower.net/");
 			return;
 		}
-		for (String cmd : blockedCommands) {
+		for (String cmd : (ArrayList<String>) asriel.get("ComandosBloqueados")) {
 			if (!e.getPlayer().hasPermission("PowerAntiRoubo.Bypass")) {
 				if (e.getMessage().toLowerCase().startsWith(cmd + " ") || e.getMessage().toLowerCase().equals(cmd)) {
 					e.setCancelled(true);
-					e.getPlayer().sendMessage(blockedMessage);
+					e.getPlayer().sendMessage(asriel.getChanged("MensagemFilosofica"));
 					break;
 				}
 			}
