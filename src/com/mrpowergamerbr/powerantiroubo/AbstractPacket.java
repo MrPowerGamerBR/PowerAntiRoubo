@@ -15,7 +15,7 @@
  *  02111-1307 USA
  */
 
-package me.mrpowergamerbr.powerantiroubo;
+package com.mrpowergamerbr.powerantiroubo;
 
 import java.lang.reflect.InvocationTargetException;
 

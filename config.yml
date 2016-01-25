@@ -1,7 +1,10 @@
 # PowerAntiRoubo - Bloqueie players tentando roubar os seus plugins!
 #
-# Criado por MrPowerGamerBR - Website: http://mrpowergamerbr.blogspot.com.br/
-# SparklyPower: http://sparklypower.net
+# Criado por MrPowerGamerBR
+#
+# Website: http://mrpowergamerbr.com/
+# SparklyPower: http://sparklypower.net/
+#
 
 # Mensagem ao tentar usar o comando
 MensagemFilosofica: "&cVocê não vai roubar meus plugins, meu caro amigo."
@@ -19,3 +22,12 @@ ComandosBloqueados:
     - /bukkit:about
     - /bukkit:pl
     - /bukkit:plugins
+    
+#
+# Temmie Updater - Verificador de Atualizações
+#
+# Criado por MrPowerGamerBR
+#
+TemmieUpdater:
+    VerificarUpdates: true
+    TemmieMetrics: true

@@ -1,4 +1,4 @@
-package me.mrpowergamerbr.powerantiroubo;
+package com.mrpowergamerbr.powerantiroubo;
 
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.PacketContainer;
