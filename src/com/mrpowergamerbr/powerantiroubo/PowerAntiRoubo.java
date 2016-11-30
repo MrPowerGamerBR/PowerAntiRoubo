@@ -14,22 +14,16 @@ import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.events.ListenerPriority;
 import com.comphenix.protocol.events.PacketAdapter;
 import com.comphenix.protocol.events.PacketEvent;
-import com.mrpowergamerbr.powerantiroubo.utils.AsrielConfig;
-import com.mrpowergamerbr.powerantiroubo.utils.TemmieUpdater;
 
-public class PowerAntiRoubo extends JavaPlugin implements Listener {
-	public AsrielConfig asriel;
-	
-	public static final String version = "v1.2.0";
-	public static final String pluginName = "PowerAntiRoubo";
-	
+import net.md_5.bungee.api.ChatColor;
+
+public class PowerAntiRoubo extends JavaPlugin implements Listener {		
 	@Override
 	public void onEnable() {
 		saveDefaultConfig();
-		asriel = new AsrielConfig(this);
 		
 		/*
-		 * Carregar as configuraÃ§Ãµes
+		 * Carregar as configurações
 		 */
 		Bukkit.getPluginManager().registerEvents(this, this);
 
@@ -39,8 +33,8 @@ public class PowerAntiRoubo extends JavaPlugin implements Listener {
 					if (!e.getPlayer().hasPermission("PowerAntiRoubo.Bypass")) {
 						WrapperPlayClientTabComplete wpctc = new WrapperPlayClientTabComplete(e.getPacket());
 
-						for (String cmd : (ArrayList<String>) asriel.get("ComandosBloqueados")) {
-							if (wpctc.getText().toLowerCase().startsWith(cmd + " ") || wpctc.getText().toLowerCase().equals(cmd)) {
+						for (String cmd : (ArrayList<String>) getConfig().getStringList("ComandosBloqueados")) {
+							if (wpctc.getText().toLowerCase().startsWith(cmd.toLowerCase() + " ") || wpctc.getText().equalsIgnoreCase(cmd)) {
 								e.setCancelled(true);
 								break;
 							}
@@ -50,10 +44,6 @@ public class PowerAntiRoubo extends JavaPlugin implements Listener {
 				}
 			}
 		});
-		
-		if ((boolean) asriel.get("TemmieUpdater.VerificarUpdates")) {
-			new TemmieUpdater(this);
-		}
 	}
 
 	@Override
@@ -64,16 +54,16 @@ public class PowerAntiRoubo extends JavaPlugin implements Listener {
 	public void onPreprocess(PlayerCommandPreprocessEvent e) {
 		if (e.getMessage().equalsIgnoreCase("/par")) {
 			e.setCancelled(true);
-			e.getPlayer().sendMessage("Â§6Â§lPowerAntiRoubo Â§6v1.2.0 Â§8- Â§3Criado por Â§bMrPowerGamerBR");
-			e.getPlayer().sendMessage("Â§eWebsite:Â§6 http://mrpowergamerbr.blogspot.com.br/");
-			e.getPlayer().sendMessage("Â§eSparklyPower:Â§6 http://sparklypower.net/");
+			e.getPlayer().sendMessage("§6§lPowerAntiRoubo §8- §3Criado por §bMrPowerGamerBR");
+			e.getPlayer().sendMessage("§eWebsite:§6 http://mrpowergamerbr.blogspot.com.br/");
+			e.getPlayer().sendMessage("§eSparklyPower:§6 http://sparklypower.net/");
 			return;
 		}
-		for (String cmd : (ArrayList<String>) asriel.get("ComandosBloqueados")) {
+		for (String cmd : getConfig().getStringList("ComandosBloqueados")) {
 			if (!e.getPlayer().hasPermission("PowerAntiRoubo.Bypass")) {
 				if (e.getMessage().toLowerCase().startsWith(cmd + " ") || e.getMessage().toLowerCase().equals(cmd)) {
 					e.setCancelled(true);
-					e.getPlayer().sendMessage(asriel.getChanged("MensagemFilosofica"));
+					e.getPlayer().sendMessage(ChatColor.translateAlternateColorCodes('&', getConfig().getString("MensagemFilosofica")));
 					break;
 				}
 			}
